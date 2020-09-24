@@ -1,4 +1,4 @@
-// Version UC5
+// Version UC6
 
 import java.util.Scanner;
 import java.util.Map;
@@ -91,10 +91,10 @@ public class AddressBookMain {
 		this.email = email;
 	}
 
-	private static Map<String, AddressBookMain> contacts = new TreeMap<>();
+	private Map<String, AddressBookMain> contacts = new TreeMap<>();
 
 	public void addThisContact(AddressBookMain person) {
-		person.name = (firstName + " " + lastName).toUpperCase();
+		person.name = (person.getFirstName() + " " + person.getLastName()).toUpperCase();
 		contacts.put(name, person);
 	}
 
@@ -119,7 +119,8 @@ public class AddressBookMain {
 		person.setEmail(sc.next());
 		System.out.println("Thank you. Data is collected.");
 
-		person.addThisContact(person);
+		String name = (person.getFirstName() + " " + person.getLastName()).toUpperCase();
+		contacts.put(name, person);
 	}
 
 	public void showAddressBook() {
@@ -154,7 +155,7 @@ public class AddressBookMain {
 			System.out.println("You are trying to change INVALID field.");
 		}
 	}
-	
+
 	public void deleteContact(String fullName) {
 		contacts.remove(fullName.toUpperCase());
 	}
@@ -170,15 +171,23 @@ public class AddressBookMain {
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program!");
 
-		AddressBookMain addressBook = new AddressBookMain();
+		AddressBookMain addressBook1 = new AddressBookMain();
 		// Person 1
-		addressBook.addNewContact();
+		addressBook1.addNewContact();
 		// Person 2
-		//addressBook.addNewContact();
-		
-		// Showing those contacts...
-		addressBook.showAddressBook();
-				
+		addressBook1.addNewContact();
+
+		AddressBookMain addressBook2 = new AddressBookMain();
+		// Person 1
+		addressBook2.addNewContact();
+		// Person 2
+		addressBook2.addNewContact();
+
+		// Showing two different address book... 
+		//Each having different contact details
+		addressBook1.showAddressBook();
+		addressBook2.showAddressBook();
+
 		sc.close();
 	}
 }
