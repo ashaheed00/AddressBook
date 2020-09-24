@@ -1,4 +1,4 @@
-// Version UC4
+// Version UC5
 
 import java.util.Scanner;
 import java.util.Map;
@@ -98,7 +98,7 @@ public class AddressBookMain {
 		contacts.put(name, person);
 	}
 
-	private static void addNewContact() {
+	public void addNewContact() {
 
 		AddressBookMain person = new AddressBookMain();
 		System.out.println("First Name:");
@@ -117,11 +117,12 @@ public class AddressBookMain {
 		person.setPhoneNumber(sc.next());
 		System.out.println("Email:");
 		person.setEmail(sc.next());
+		System.out.println("Thank you. Data is collected.");
 
 		person.addThisContact(person);
 	}
 
-	private static void showAddressBook() {
+	public void showAddressBook() {
 		for (String key : contacts.keySet())
 			System.out.println(contacts.get(key));
 	}
@@ -169,24 +170,15 @@ public class AddressBookMain {
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program!");
 
-		System.out.println("Adding contact without creating object...");
-		addNewContact();
-		System.out.println("Adding contact using field constructor...");
-		AddressBookMain person1 = new AddressBookMain(sc.next(), sc.next(), sc.next(), sc.next(), sc.next(), sc.next(),
-				sc.next(), sc.next());
-		person1.addThisContact(person1);
-		showAddressBook();
+		AddressBookMain addressBook = new AddressBookMain();
+		// Person 1
+		addressBook.addNewContact();
+		// Person 2
+		//addressBook.addNewContact();
 		
-		// Editing...
-		System.out.println("Edit details entering person's name: ");
-		person1.editContact(sc.next() + " " + sc.next());
-		showAddressBook();
-		
-		// Deleting...
-		System.out.println("Delete a contact entering person's name: ");
-		person1.deleteContact(sc.next() + " " + sc.next());
-		showAddressBook();
-		
+		// Showing those contacts...
+		addressBook.showAddressBook();
+				
 		sc.close();
 	}
 }
