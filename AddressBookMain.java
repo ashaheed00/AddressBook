@@ -1,4 +1,4 @@
-// Version UC2
+// Version UC3
 
 import java.util.Scanner;
 import java.util.Map;
@@ -98,11 +98,6 @@ public class AddressBookMain {
 		contacts.put(name, person);
 	}
 
-	private static void showAddressBook() {
-		for (String key : contacts.keySet())
-			System.out.println(contacts.get(key));
-	}
-
 	private static void addNewContact() {
 
 		AddressBookMain person = new AddressBookMain();
@@ -126,6 +121,39 @@ public class AddressBookMain {
 		person.addThisContact(person);
 	}
 
+	private static void showAddressBook() {
+		for (String key : contacts.keySet())
+			System.out.println(contacts.get(key));
+	}
+
+	public void editContact(String fullName) {
+		String key = fullName.toUpperCase();
+		System.out.println("What do you want to edit?");
+		String element = sc.next().toUpperCase();
+		switch (element) {
+		case "ADDRESS":
+			contacts.get(key).setAddress(sc.next());
+			break;
+		case "CITY":
+			contacts.get(key).setCity(sc.next());
+			break;
+		case "STATE":
+			contacts.get(key).setState(sc.next());
+			break;
+		case "ZIP":
+			contacts.get(key).setZip(sc.next());
+			break;
+		case "PHONE NUMBER":
+			contacts.get(key).setPhoneNumber(sc.next());
+			break;
+		case "EMAIL":
+			contacts.get(key).setEmail(sc.next());
+			break;
+		default:
+			System.out.println("You are trying to change INVALID field.");
+		}
+	}
+
 	@Override
 	public String toString() {
 		return "[firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", city=" + city
@@ -143,10 +171,13 @@ public class AddressBookMain {
 		AddressBookMain person1 = new AddressBookMain(sc.next(), sc.next(), sc.next(), sc.next(), sc.next(), sc.next(),
 				sc.next(), sc.next());
 		person1.addThisContact(person1);
-		
 		showAddressBook();
-
+		
+		System.out.println("Edit details entering person's name: ");
+		person1.editContact(sc.next() + " " + sc.next());
+		// After editing the address book
+		showAddressBook();
+		
 		sc.close();
 	}
-
 }
