@@ -1,4 +1,4 @@
-// Version UC3
+// Version UC4
 
 import java.util.Scanner;
 import java.util.Map;
@@ -153,6 +153,10 @@ public class AddressBookMain {
 			System.out.println("You are trying to change INVALID field.");
 		}
 	}
+	
+	public void deleteContact(String fullName) {
+		contacts.remove(fullName.toUpperCase());
+	}
 
 	@Override
 	public String toString() {
@@ -173,9 +177,14 @@ public class AddressBookMain {
 		person1.addThisContact(person1);
 		showAddressBook();
 		
+		// Editing...
 		System.out.println("Edit details entering person's name: ");
 		person1.editContact(sc.next() + " " + sc.next());
-		// After editing the address book
+		showAddressBook();
+		
+		// Deleting...
+		System.out.println("Delete a contact entering person's name: ");
+		person1.deleteContact(sc.next() + " " + sc.next());
 		showAddressBook();
 		
 		sc.close();
