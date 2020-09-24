@@ -174,7 +174,7 @@ public class AddressBookMain {
 		// Person 1
 		addressBook.addNewContact();
 		// Person 2
-		//addressBook.addNewContact();
+		addressBook.addNewContact();
 		
 		// Showing those contacts...
 		addressBook.showAddressBook();
