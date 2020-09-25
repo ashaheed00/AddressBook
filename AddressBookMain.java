@@ -1,3 +1,5 @@
+UC3:
+
 // Version UC3
 
 import java.util.Scanner;
@@ -5,7 +7,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class AddressBookMain {
-
 	private String firstName, lastName, name;
 	private String address, city, state, zip;
 	private String phoneNumber, email;
@@ -15,7 +16,6 @@ public class AddressBookMain {
 
 	public AddressBookMain(String firstName, String lastName, String address, String city, String state, String zip,
 			String phoneNumber, String email) {
-
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
@@ -91,14 +91,14 @@ public class AddressBookMain {
 		this.email = email;
 	}
 
-	private static Map<String, AddressBookMain> contacts = new TreeMap<>();
+	private Map<String, AddressBookMain> contacts = new TreeMap<>();
 
 	public void addThisContact(AddressBookMain person) {
 		person.name = (firstName + " " + lastName).toUpperCase();
 		contacts.put(name, person);
 	}
 
-	private static void addNewContact() {
+	public void addNewContact() {
 
 		AddressBookMain person = new AddressBookMain();
 		System.out.println("First Name:");
@@ -118,10 +118,11 @@ public class AddressBookMain {
 		System.out.println("Email:");
 		person.setEmail(sc.next());
 
-		person.addThisContact(person);
+String name = (person.getFirstName() + " " + person.getLastName()).toUpperCase();
+		contacts.put(name, person);
 	}
 
-	private static void showAddressBook() {
+	public void showAddressBook() {
 		for (String key : contacts.keySet())
 			System.out.println(contacts.get(key));
 	}
@@ -165,18 +166,19 @@ public class AddressBookMain {
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program!");
 
-		System.out.println("Adding contact without creating object...");
-		addNewContact();
 		System.out.println("Adding contact using field constructor...");
-		AddressBookMain person1 = new AddressBookMain(sc.next(), sc.next(), sc.next(), sc.next(), sc.next(), sc.next(),
+		AddressBookMain adbk = new AddressBookMain(sc.next(), sc.next(), sc.next(), sc.next(), sc.next(), sc.next(),
 				sc.next(), sc.next());
-		person1.addThisContact(person1);
-		showAddressBook();
+		adbk.addThisContact(person1);
+		// Using two different methods to add contacts
+		// above one uses constructor and below one uses setters
+		adbk.addNewContact();
+		adbk.showAddressBook();
 		
-		System.out.println("Edit details entering person's name: ");
-		person1.editContact(sc.next() + " " + sc.next());
+		System.out.println("Edit entering person's name: ");
+		adbk.editContact(sc.next() + " " + sc.next());
 		// After editing the address book
-		showAddressBook();
+		adbk.showAddressBook();
 		
 		sc.close();
 	}
