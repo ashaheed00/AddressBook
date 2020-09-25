@@ -1,3 +1,5 @@
+UC5:
+
 // Version UC5
 
 import java.util.Scanner;
@@ -91,7 +93,7 @@ public class AddressBookMain {
 		this.email = email;
 	}
 
-	private static Map<String, AddressBookMain> contacts = new TreeMap<>();
+	private Map<String, AddressBookMain> contacts = new TreeMap<>();
 
 	public void addThisContact(AddressBookMain person) {
 		person.name = (firstName + " " + lastName).toUpperCase();
@@ -119,7 +121,8 @@ public class AddressBookMain {
 		person.setEmail(sc.next());
 		System.out.println("Thank you. Data is collected.");
 
-		person.addThisContact(person);
+String name = (person.getFirstName() + " " + person.getLastName()).toUpperCase();
+		contacts.put(name, person);
 	}
 
 	public void showAddressBook() {
