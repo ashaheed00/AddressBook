@@ -1,3 +1,5 @@
+UC2:
+
 // Version UC2
 
 import java.util.Scanner;
@@ -91,19 +93,19 @@ public class AddressBookMain {
 		this.email = email;
 	}
 
-	private static Map<String, AddressBookMain> contacts = new TreeMap<>();
+	private Map<String, AddressBookMain> contacts = new TreeMap<>();
 
 	public void addThisContact(AddressBookMain person) {
 		person.name = (firstName + " " + lastName).toUpperCase();
 		contacts.put(name, person);
 	}
 
-	private static void showAddressBook() {
+	public void showAddressBook() {
 		for (String key : contacts.keySet())
 			System.out.println(contacts.get(key));
 	}
 
-	private static void addNewContact() {
+	public void addNewContact() {
 
 		AddressBookMain person = new AddressBookMain();
 		System.out.println("First Name:");
@@ -123,7 +125,10 @@ public class AddressBookMain {
 		System.out.println("Email:");
 		person.setEmail(sc.next());
 
-		person.addThisContact(person);
+String name = (person.getFirstName() + " " + person.getLastName()).toUpperCase();
+	    	contacts.put(name, person);
+
+
 	}
 
 	@Override
@@ -137,15 +142,14 @@ public class AddressBookMain {
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program!");
 
-		System.out.println("Adding contact without creating object...");
-		addNewContact();
 		System.out.println("Adding contact using field constructor...");
-		AddressBookMain person1 = new AddressBookMain(sc.next(), sc.next(), sc.next(), sc.next(), sc.next(), sc.next(),
+		AddressBookMain adbk = new AddressBookMain(sc.next(), sc.next(), sc.next(), sc.next(), sc.next(), sc.next(),
 				sc.next(), sc.next());
-		person1.addThisContact(person1);
-		
-		showAddressBook();
-
+		adbk.addThisContact(person1);
+		// Using two different methods to add contacts
+		// above one uses constructor and below one uses setters
+		adbk.addNewContact();
+		adbk.showAddressBook();
 		sc.close();
 	}
 
