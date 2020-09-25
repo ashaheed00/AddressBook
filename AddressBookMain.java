@@ -1,3 +1,5 @@
+UC4:
+
 // Version UC4
 
 import java.util.Scanner;
@@ -91,14 +93,14 @@ public class AddressBookMain {
 		this.email = email;
 	}
 
-	private static Map<String, AddressBookMain> contacts = new TreeMap<>();
+	private Map<String, AddressBookMain> contacts = new TreeMap<>();
 
 	public void addThisContact(AddressBookMain person) {
 		person.name = (firstName + " " + lastName).toUpperCase();
 		contacts.put(name, person);
 	}
 
-	private static void addNewContact() {
+	public void addNewContact() {
 
 		AddressBookMain person = new AddressBookMain();
 		System.out.println("First Name:");
@@ -121,7 +123,7 @@ public class AddressBookMain {
 		person.addThisContact(person);
 	}
 
-	private static void showAddressBook() {
+	public void showAddressBook() {
 		for (String key : contacts.keySet())
 			System.out.println(contacts.get(key));
 	}
@@ -169,23 +171,24 @@ public class AddressBookMain {
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program!");
 
-		System.out.println("Adding contact without creating object...");
-		addNewContact();
 		System.out.println("Adding contact using field constructor...");
-		AddressBookMain person1 = new AddressBookMain(sc.next(), sc.next(), sc.next(), sc.next(), sc.next(), sc.next(),
+		AddressBookMain adbk = new AddressBookMain(sc.next(), sc.next(), sc.next(), sc.next(), sc.next(), sc.next(),
 				sc.next(), sc.next());
-		person1.addThisContact(person1);
-		showAddressBook();
+		adbk.addThisContact(person1);
+		// Using two different methods to add contacts
+		// above one uses constructor and below one uses setters
+		adbk.addNewContact();
+		adbk.showAddressBook();
 		
-		// Editing...
-		System.out.println("Edit details entering person's name: ");
-		person1.editContact(sc.next() + " " + sc.next());
-		showAddressBook();
+		System.out.println("Edit entering person's name: ");
+		adbk.editContact(sc.next() + " " + sc.next());
+		// After editing the address book
+		adbk.showAddressBook();
 		
 		// Deleting...
 		System.out.println("Delete a contact entering person's name: ");
-		person1.deleteContact(sc.next() + " " + sc.next());
-		showAddressBook();
+		adbk.deleteContact(sc.next() + " " + sc.next());
+		adbk.showAddressBook();
 		
 		sc.close();
 	}
