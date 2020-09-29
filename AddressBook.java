@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class AddressBook {
-	Contact person = new Contact();
+	
 	static Scanner in = new Scanner(System.in);
 	private List<Contact> contactList = new ArrayList<>();
 	private Map<String, Contact> contactMap = new HashMap<>();
@@ -23,6 +23,7 @@ public class AddressBook {
 	}
 
 	public void addNewContact() {
+		Contact person = new Contact();
 		System.out.print("First Name: ");
 		person.setFirstName(in.next());
 		System.out.print("Last Name: ");
