@@ -109,4 +109,18 @@ public class AddressBook {
 		}
 	}
 
+	public void viewPersonsByCity(String city) {
+		contactList.forEach(person -> {
+			if (person.getCity().equals(city))
+				System.out.println(person);
+		});
+	}
+
+	public void viewPersonsByState(String state) {
+		contactList.forEach(person -> {
+			if (person.getState().equals(state))
+				System.out.println(person);
+		});
+	}
+
 }

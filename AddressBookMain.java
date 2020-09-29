@@ -1,5 +1,5 @@
 
-// Version UC7
+// Version UC8
 
 import java.util.Scanner;
 
@@ -9,7 +9,8 @@ public class AddressBookMain {
 
 	private static void operations(AddressBook addressBook) {
 		System.out.println("Add new contact: type 1" + "\nEdit someone's details: type 2" + "\nDelete a contact: type 3"
-				+ "\nGo Back to Main Menu" + "\nExit the procces: type 0");
+				+ "\nGo Back to Main Menu" + "\nSearch by city: type 5" + "\nSearch by state: type 6"
+				+ "\nExit the procces: type 0");
 		System.out.print("Enter operation code: ");
 		String option = sc.next();
 		switch (option) {
@@ -26,6 +27,15 @@ public class AddressBookMain {
 			break;
 		case "4":
 			mainMenu();
+			break;
+		case "5":
+			System.out.println("Enter the city name to search: ");
+			addressBook.viewPersonsByCity(sc.next());
+			break;
+		case "6":
+			System.out.println("Enter the state name to search: ");
+			addressBook.viewPersonsByState(sc.next());
+			break;
 		case "0":
 			System.out.println("Exiting...");
 			return;
