@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.function.Consumer;
+import java.util.TreeMap;
 
 public class AddressBook {
 
@@ -47,7 +47,7 @@ public class AddressBook {
 		person.setPhoneNo(in.next());
 		System.out.print("Email: ");
 		person.setEmail(in.next());
-		// Java Stream and Lambda expression
+
 		contactList.forEach(other -> {
 			if (other.equals(person)) {
 				System.out.println("Duplicate details.");
@@ -109,18 +109,39 @@ public class AddressBook {
 		}
 	}
 
-	public void viewPersonsByCity(String city) {
+	public ArrayList<Contact> searchPersonsByCity(String city) {
+		ArrayList<Contact> personsByCity = new ArrayList<>();
 		contactList.forEach(person -> {
 			if (person.getCity().equals(city))
-				System.out.println(person);
+				personsByCity.add(person);
 		});
+		return personsByCity;
 	}
 
-	public void viewPersonsByState(String state) {
+	public ArrayList<Contact> searchPersonsByState(String state) {
+		ArrayList<Contact> personsByState = new ArrayList<>();
 		contactList.forEach(person -> {
 			if (person.getState().equals(state))
-				System.out.println(person);
+				personsByState.add(person);
 		});
+		return personsByState;
 	}
 
+	private Map<String, ArrayList<Contact>> personsByCityMap = new TreeMap<>();
+
+	public Map<String, ArrayList<Contact>> viewPersonsByCity() {
+		contactList
+				.forEach(person ->
+				personsByCityMap.put(person.getCity(), searchPersonsByCity(person.getCity())));
+		return personsByCityMap;
+	}
+
+	private Map<String, ArrayList<Contact>> personsByStateMap = new TreeMap<>();
+
+	public Map<String, ArrayList<Contact>> viewPersonsByState() {
+		contactList
+				.forEach(person ->
+				personsByStateMap.put(person.getState(), searchPersonsByState(person.getState())));
+		return personsByStateMap;
+	}
 }

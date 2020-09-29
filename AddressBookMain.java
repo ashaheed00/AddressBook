@@ -1,5 +1,4 @@
-
-// Version UC8
+// Version UC9
 
 import java.util.Scanner;
 
@@ -30,11 +29,11 @@ public class AddressBookMain {
 			break;
 		case "5":
 			System.out.println("Enter the city name to search: ");
-			addressBook.viewPersonsByCity(sc.next());
+			addressBook.searchPersonsByCity(sc.next());
 			break;
 		case "6":
 			System.out.println("Enter the state name to search: ");
-			addressBook.viewPersonsByState(sc.next());
+			addressBook.searchPersonsByState(sc.next());
 			break;
 		case "0":
 			System.out.println("Exiting...");
@@ -78,5 +77,9 @@ public class AddressBookMain {
 		// checking whether my operations worked correctly or not
 		System.out.println("addressBookA after all the operations => \n" + addressBookA.getContactList());
 		System.out.println("addressBookB after all the operations => \n" + addressBookB.getContactList());
+		// View addressBookA by City
+		System.out.println(addressBookA.viewPersonsByCity());
+		// View addressBookB by State
+		System.out.println(addressBookB.viewPersonsByState());	
 	}
 }
