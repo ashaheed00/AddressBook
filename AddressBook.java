@@ -109,6 +109,8 @@ public class AddressBook {
 		}
 	}
 
+
+	// Search by city and state
 	public ArrayList<Contact> searchPersonsByCity(String city) {
 		ArrayList<Contact> personsByCity = new ArrayList<>();
 		contactList.forEach(person -> {
@@ -127,6 +129,8 @@ public class AddressBook {
 		return personsByState;
 	}
 
+
+	// View whole address book grouped by city or state
 	private Map<String, ArrayList<Contact>> personsByCityMap = new TreeMap<>();
 
 	public Map<String, ArrayList<Contact>> viewPersonsByCity() {
@@ -143,5 +147,15 @@ public class AddressBook {
 				.forEach(person ->
 				personsByStateMap.put(person.getState(), searchPersonsByState(person.getState())));
 		return personsByStateMap;
+	}
+	
+
+	// Counting by city and state
+	public int countByCity(String city) {
+		return viewPersonsByCity().get(city).size();
+	}
+
+	public int countByState(String state) {
+		return viewPersonsByState().get(state).size();
 	}
 }
