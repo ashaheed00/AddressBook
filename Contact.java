@@ -16,7 +16,7 @@ public class Contact {
 		this.zip = zip;
 		this.phoneNo = phoneNo;
 		this.email = email;
-		this.name = (firstName + lastName).toLowerCase();
+		this.name = (firstName + " " + lastName).toLowerCase();
 
 	}
 
