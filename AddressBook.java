@@ -9,6 +9,7 @@ public class AddressBook {
 	Contact person = new Contact();
 	static Scanner in = new Scanner(System.in);
 	private List<Contact> contactList = new ArrayList<>();
+	private Map<String, Contact> contactMap = new HashMap<>();
 
 	public List<Contact> getContactList() {
 		return contactList;
@@ -17,8 +18,6 @@ public class AddressBook {
 	public Map<String, Contact> getContactMap() {
 		return contactMap;
 	}
-
-	private Map<String, Contact> contactMap = new HashMap<>();
 
 	public AddressBook() {
 	}
@@ -78,6 +77,19 @@ public class AddressBook {
 			}
 		} else
 			System.out.println(name.toUpperCase() + " is not present in the Address Book.");
+	}
+
+	public void deleteContact(String firstName, String lastName) {
+		String name = (firstName + " " + lastName).toLowerCase();
+		if (contactMap.containsKey(name)) {
+			System.out.println("Type 'Y'to confirm, else type anything.");
+			if (in.next().toUpperCase().equals("Y"))
+				contactMap.remove(name);
+			else
+				return;
+		} else {
+			System.out.println(name.toUpperCase() + " is not present in the Address Book.");
+		}
 	}
 
 }
