@@ -1,13 +1,18 @@
+<<<<<<< HEAD
 UC5:
 
 // Version UC5
+=======
+UC4:
+
+// Version UC4
+>>>>>>> UC4
 
 import java.util.Scanner;
-import java.util.Map;
-import java.util.TreeMap;
 
 public class AddressBookMain {
 
+<<<<<<< HEAD
 	private String firstName, lastName, name;
 	private String address, city, state, zip;
 	private String phoneNumber, email;
@@ -143,36 +148,39 @@ String name = (person.getFirstName() + " " + person.getLastName()).toUpperCase()
 			break;
 		case "STATE":
 			contacts.get(key).setState(sc.next());
-			break;
-		case "ZIP":
-			contacts.get(key).setZip(sc.next());
-			break;
-		case "PHONE NUMBER":
-			contacts.get(key).setPhoneNumber(sc.next());
-			break;
-		case "EMAIL":
-			contacts.get(key).setEmail(sc.next());
-			break;
-		default:
-			System.out.println("You are trying to change INVALID field.");
-		}
-	}
-	
-	public void deleteContact(String fullName) {
-		contacts.remove(fullName.toUpperCase());
-	}
-
-	@Override
-	public String toString() {
-		return "[firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", city=" + city
-				+ ", state=" + state + ", zip=" + zip + ", phoneNumber=" + phoneNumber + ", email=" + email + "]";
-	}
-
-	static Scanner sc = new Scanner(System.in);
-
+=======
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program!");
+		Scanner sc = new Scanner(System.in);
+		AddressBook addressBook = new AddressBook();
 
+		System.out.println("Add new contact: type 1" 
+			+ "\nEdit someone's details: type 2" 
+			+ "\nDelete a contact: type 3" 
+			+ "\nExit the procces: type 0");
+
+		int menu = sc.nextInt();
+		switch (menu) {
+		case 1:
+			addressBook.addNewContact();
+>>>>>>> UC4
+			break;
+		case 2:
+			System.out.println("Enter the person's name you want to edit: ");
+			addressBook.editContact(sc.next(), sc.next());
+			break;
+		case 3:
+			System.out.println("Enter the person's name to delete his/her details: ");
+			addressBook.deleteContact(sc.next(), sc.next());
+			break;
+		case 0:
+			System.out.println("Exiting...");
+			break;
+		default:
+			System.out.println("Wrong option entered");
+		}
+
+<<<<<<< HEAD
 		AddressBookMain addressBook = new AddressBookMain();
 		// Person 1
 		addressBook.addNewContact();
@@ -182,6 +190,8 @@ String name = (person.getFirstName() + " " + person.getLastName()).toUpperCase()
 		// Showing those contacts...
 		addressBook.showAddressBook();
 				
+=======
+>>>>>>> UC4
 		sc.close();
 	}
 }
