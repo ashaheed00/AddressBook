@@ -2,11 +2,8 @@ UC3:
 
 // Version UC3
 
-import java.util.Scanner;
-import java.util.Map;
-import java.util.TreeMap;
-
 public class AddressBookMain {
+<<<<<<< HEAD
 	private String firstName, lastName, name;
 	private String address, city, state, zip;
 	private String phoneNumber, email;
@@ -162,10 +159,13 @@ String name = (person.getFirstName() + " " + person.getLastName()).toUpperCase()
 	}
 
 	static Scanner sc = new Scanner(System.in);
+=======
+>>>>>>> UC2
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program!");
 
+<<<<<<< HEAD
 		System.out.println("Adding contact using field constructor...");
 		AddressBookMain adbk = new AddressBookMain(sc.next(), sc.next(), sc.next(), sc.next(), sc.next(), sc.next(),
 				sc.next(), sc.next());
@@ -181,5 +181,10 @@ String name = (person.getFirstName() + " " + person.getLastName()).toUpperCase()
 		adbk.showAddressBook();
 		
 		sc.close();
+=======
+		System.out.println("Add new contact using field constructor...");
+		AddressBook addressBook = new AddressBook();
+		addressBook.addNewContact();
+>>>>>>> UC2
 	}
 }
