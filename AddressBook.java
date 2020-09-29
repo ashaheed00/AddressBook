@@ -1,12 +1,14 @@
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Consumer;
 
 public class AddressBook {
 
-	private static Scanner in = new Scanner(System.in);
+	static Scanner in = new Scanner(System.in);
 	private List<Contact> contactList = new ArrayList<>();
 	private Map<String, Contact> contactMap = new HashMap<>();
 	static Map<String, AddressBook> addressBookList = new HashMap<>();
@@ -29,6 +31,10 @@ public class AddressBook {
 		person.setFirstName(in.next());
 		System.out.print("Last Name: ");
 		person.setLastName(in.next());
+		if (contactMap.containsKey(person.getName())) {
+			System.out.println("Duplicate Name.");
+			return;
+		}
 		System.out.print("Address: ");
 		person.setAddress(in.next());
 		System.out.print("City: ");
@@ -41,6 +47,14 @@ public class AddressBook {
 		person.setPhoneNo(in.next());
 		System.out.print("Email: ");
 		person.setEmail(in.next());
+		// Java Stream and Lambda expression
+		contactList.forEach(other -> {
+			if (other.equals(person)) {
+				System.out.println("Duplicate details.");
+				return;
+			}
+		});
+
 		contactList.add(person);
 		contactMap.put(person.getName(), person);
 	}
@@ -77,6 +91,7 @@ public class AddressBook {
 				contactMap.get(name).setEmail(in.next());
 				break;
 			}
+
 		} else
 			System.out.println(name.toUpperCase() + " is not present in the Address Book.");
 	}

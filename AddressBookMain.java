@@ -1,4 +1,5 @@
-// Version UC6
+
+// Version UC7
 
 import java.util.Scanner;
 
@@ -45,15 +46,15 @@ public class AddressBookMain {
 			if (AddressBook.addressBookList.containsKey(addressBookName))
 				operations(AddressBook.addressBookList.get(addressBookName));
 			else
-				System.out.println("Wrong address book name.");
+				System.out.println("Wrong address book name. Try again.");
 			break;
 		case "0":
 			System.out.println("Exiting...");
 			return;
 		default:
 			System.out.println("Wrong menu code entry. Try again.");
-			mainMenu();
 		}
+		mainMenu();
 	}
 
 	public static void main(String[] args) {
@@ -62,10 +63,8 @@ public class AddressBookMain {
 		// Creating two distinct address books
 		AddressBook addressBookA = new AddressBook("addressBookA");
 		AddressBook addressBookB = new AddressBook("addressBookB");
-
 		// Entering into to main menu
 		mainMenu();
-
 		// checking whether my operations worked correctly or not
 		System.out.println("addressBookA after all the operations => \n" + addressBookA.getContactList());
 		System.out.println("addressBookB after all the operations => \n" + addressBookB.getContactList());

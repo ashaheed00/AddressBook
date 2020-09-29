@@ -90,6 +90,24 @@ public class Contact {
 	}
 
 	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Contact other = (Contact) obj;
+		if (email == null && phoneNo == null) {
+			if (other.email != email && other.phoneNo != phoneNo)
+				return false;
+		} else if (!phoneNo.equals(other.phoneNo) && !email.equals(other.email)) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
 	public String toString() {
 		return "\n{First Name :" + firstName + "\nLast Name :" + lastName + "\nAddress :" + address + "\nCity :" + city
 				+ "\nState :" + state + "\nZip :" + zip + "\nPhone No :" + phoneNo + "\nEmail :" + email + "}\n";
