@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -6,10 +5,15 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class AddressBook {
-	
-	static Scanner in = new Scanner(System.in);
+
+	private static Scanner in = new Scanner(System.in);
 	private List<Contact> contactList = new ArrayList<>();
 	private Map<String, Contact> contactMap = new HashMap<>();
+	static Map<String, AddressBook> addressBookList = new HashMap<>();
+
+	public AddressBook(String objectName) {
+		addressBookList.put(objectName, this);
+	}
 
 	public List<Contact> getContactList() {
 		return contactList;
@@ -17,9 +21,6 @@ public class AddressBook {
 
 	public Map<String, Contact> getContactMap() {
 		return contactMap;
-	}
-
-	public AddressBook() {
 	}
 
 	public void addNewContact() {
