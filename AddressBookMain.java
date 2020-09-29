@@ -1,15 +1,12 @@
 // Version UC6
 
 import java.util.Scanner;
-import java.util.Map;
-import java.util.TreeMap;
 
 public class AddressBookMain {
 
-	private String firstName, lastName, name;
-	private String address, city, state, zip;
-	private String phoneNumber, email;
+	private static Scanner sc = new Scanner(System.in);
 
+<<<<<<< HEAD
 	public AddressBookMain() {
 	}
 
@@ -138,23 +135,32 @@ public class AddressBookMain {
 			break;
 		case "CITY":
 			contacts.get(key).setCity(sc.next());
+=======
+	private static void operations(AddressBook addressBook) {
+		String menu = sc.next();
+		switch (menu) {
+		case "1":
+			addressBook.addNewContact();
+>>>>>>> UC5
 			break;
-		case "STATE":
-			contacts.get(key).setState(sc.next());
+		case "2":
+			System.out.println("Enter the person's name you want to edit: ");
+			addressBook.editContact(sc.next(), sc.next());
 			break;
-		case "ZIP":
-			contacts.get(key).setZip(sc.next());
+		case "3":
+			System.out.println("Enter the person's name to delete his/her details: ");
+			addressBook.deleteContact(sc.next(), sc.next());
 			break;
-		case "PHONE NUMBER":
-			contacts.get(key).setPhoneNumber(sc.next());
-			break;
-		case "EMAIL":
-			contacts.get(key).setEmail(sc.next());
-			break;
+		case "0":
+			System.out.println("Exiting...");
+			return;
 		default:
-			System.out.println("You are trying to change INVALID field.");
+			System.out.println("Wrong option chosen");
 		}
+		System.out.print("Enter next operation: ");
+		operations(addressBook);
 	}
+<<<<<<< HEAD
 
 	public void deleteContact(String fullName) {
 		contacts.remove(fullName.toUpperCase());
@@ -167,10 +173,13 @@ public class AddressBookMain {
 	}
 
 	static Scanner sc = new Scanner(System.in);
+=======
+>>>>>>> UC5
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program!");
 
+<<<<<<< HEAD
 		AddressBookMain addressBook1 = new AddressBookMain();
 		// Person 1
 		addressBook1.addNewContact();
@@ -189,5 +198,11 @@ public class AddressBookMain {
 		addressBook2.showAddressBook();
 
 		sc.close();
+=======
+		AddressBook addressBook = new AddressBook();
+		System.out.println("Add new contact: type 1" + "\nEdit someone's details: type 2" + "\nDelete a contact: type 3"
+				+ "\nExit the procces: type 0");
+		operations(addressBook);
+>>>>>>> UC5
 	}
 }
