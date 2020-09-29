@@ -3,11 +3,10 @@ UC4:
 // Version UC4
 
 import java.util.Scanner;
-import java.util.Map;
-import java.util.TreeMap;
 
 public class AddressBookMain {
 
+<<<<<<< HEAD
 	private String firstName, lastName, name;
 	private String address, city, state, zip;
 	private String phoneNumber, email;
@@ -190,6 +189,18 @@ public class AddressBookMain {
 		adbk.deleteContact(sc.next() + " " + sc.next());
 		adbk.showAddressBook();
 		
+=======
+	public static void main(String[] args) {
+		System.out.println("Welcome to Address Book Program!");
+
+		System.out.println("Add new contact using field constructor...");
+		AddressBook addressBook = new AddressBook();
+		addressBook.addNewContact();
+
+		System.out.println("Enter the person's full name to edit his/her details: ");
+		Scanner sc = new Scanner(System.in);
+		addressBook.editContact(sc.next(), sc.next());
+>>>>>>> UC3
 		sc.close();
 	}
 }
