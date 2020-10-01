@@ -146,4 +146,19 @@ public class AddressBook {
 		contactList.stream().sorted((a, b) -> a.getName().compareTo(b.getName())).forEachOrdered(System.out::println);
 	}
 
+	public void sortByCity() {
+		System.out.println("Sorting current address book by city: ");
+		contactList.stream().sorted((a, b) -> a.getCity().compareTo(b.getCity())).forEachOrdered(System.out::println);
+	}
+
+	public void sortByState() {
+		System.out.println("Sorting current address book by state: ");
+		contactList.stream().sorted((a, b) -> a.getState().compareTo(b.getState())).forEachOrdered(System.out::println);
+	}
+
+	public void sortByZip() {
+		System.out.println("Sorting current address book by ZIP: ");
+		contactList.stream().sorted((a, b) -> a.getZip().compareTo(b.getZip())).forEachOrdered(System.out::println);
+	}
+
 }
