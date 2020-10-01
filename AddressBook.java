@@ -47,13 +47,11 @@ public class AddressBook {
 		person.setPhoneNo(in.next());
 		System.out.print("Email: ");
 		person.setEmail(in.next());
-		// Java Stream and Lambda expression
-		contactList.forEach(other -> {
-			if (other.equals(person)) {
-				System.out.println("Duplicate details.");
-				return;
-			}
-		});
+
+		if (contactList.stream().anyMatch(other -> other.equals(person))) {
+			System.out.println("Duplicate details.");
+			return;
+		}
 
 		contactList.add(person);
 		contactMap.put(person.getName(), person);
