@@ -29,11 +29,11 @@ public class AddressBookMain {
 			break;
 		case "5":
 			System.out.println("Enter the city name to search: ");
-			addressBook.searchPersonsByCity(sc.next());
+			System.out.println(addressBook.searchPersonsByCity(sc.next()));
 			break;
 		case "6":
 			System.out.println("Enter the state name to search: ");
-			addressBook.searchPersonsByState(sc.next());
+			System.out.println(addressBook.searchPersonsByState(sc.next()));
 			break;
 		case "0":
 			System.out.println("Exiting...");
@@ -80,6 +80,6 @@ public class AddressBookMain {
 		// View addressBookA by City
 		System.out.println(addressBookA.viewPersonsByCity());
 		// View addressBookB by State
-		System.out.println(addressBookB.viewPersonsByState());	
+		System.out.println(addressBookB.viewPersonsByState());
 	}
 }
