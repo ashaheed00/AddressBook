@@ -140,4 +140,10 @@ public class AddressBook {
 		Set<String> states = viewPersonsByCity().keySet();
 		states.stream().forEach(state -> System.out.println(state + " contains: " + viewPersonsByCity().get(state).stream().count() + " persons."));
 	}
+	
+	public void sortByName() {
+		System.out.println("Sorting current address book by name: ");
+		contactList.stream().sorted((a, b) -> a.getName().compareTo(b.getName())).forEachOrdered(System.out::println);
+	}
+
 }

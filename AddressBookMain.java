@@ -1,4 +1,4 @@
-// Version UC10
+// Version UC11
 
 import java.util.Scanner;
 
@@ -85,5 +85,7 @@ public class AddressBookMain {
 		addressBookA.countByCity();
 		// Count by state
 		addressBookA.countByState();
+		// Sorting by name
+		addressBookA.sortByName();
 	}
 }
