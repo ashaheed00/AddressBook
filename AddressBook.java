@@ -48,12 +48,10 @@ public class AddressBook {
 		System.out.print("Email: ");
 		person.setEmail(in.next());
 		// Java Stream and Lambda expression
-		contactList.forEach(other -> {
-			if (other.equals(person)) {
-				System.out.println("Duplicate details.");
-				return;
-			}
-		});
+		if (contactList.stream().anyMatch(other -> other.equals(person))) {
+			System.out.println("Duplicate details.");
+			return;
+		}
 
 		contactList.add(person);
 		contactMap.put(person.getName(), person);
@@ -109,18 +107,12 @@ public class AddressBook {
 		}
 	}
 
-	public void searchPersonsByCity(String city) {
-		contactList.forEach(person -> {
-			if (person.getCity().equals(city))
-				System.out.println(person);
-		});
+	public List<Contact> searchPersonsByCity(String city) {
+		return contactList.stream().filter(person -> person.getCity().equals(city)).collect(Collectors.toList());
 	}
 
-	public void searchPersonsByState(String state) {
-		contactList.forEach(person -> {
-			if (person.getState().equals(state))
-				System.out.println(person);
-		});
+	public List<Contact> searchPersonsByState(String state) {
+		return contactList.stream().filter(person -> person.getState().equals(state)).collect(Collectors.toList());
 	}
 
 }
