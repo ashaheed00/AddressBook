@@ -1,10 +1,11 @@
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 public class AddressBook {
 
@@ -48,13 +49,10 @@ public class AddressBook {
 		System.out.print("Email: ");
 		person.setEmail(in.next());
 
-		contactList.forEach(other -> {
-			if (other.equals(person)) {
-				System.out.println("Duplicate details.");
-				return;
-			}
-		});
-
+		if (contactList.stream().anyMatch(other -> other.equals(person))) {
+			System.out.println("Duplicate details.");
+			return;
+		}
 		contactList.add(person);
 		contactMap.put(person.getName(), person);
 	}
@@ -109,53 +107,37 @@ public class AddressBook {
 		}
 	}
 
-
-	// Search by city and state
-	public ArrayList<Contact> searchPersonsByCity(String city) {
-		ArrayList<Contact> personsByCity = new ArrayList<>();
-		contactList.forEach(person -> {
-			if (person.getCity().equals(city))
-				personsByCity.add(person);
-		});
-		return personsByCity;
+	public List<Contact> searchPersonsByCity(String city) {
+		return contactList.stream().filter(person -> person.getCity().equals(city)).collect(Collectors.toList());
 	}
 
-	public ArrayList<Contact> searchPersonsByState(String state) {
-		ArrayList<Contact> personsByState = new ArrayList<>();
-		contactList.forEach(person -> {
-			if (person.getState().equals(state))
-				personsByState.add(person);
-		});
-		return personsByState;
+	public List<Contact> searchPersonsByState(String state) {
+		return contactList.stream().filter(person -> person.getState().equals(state)).collect(Collectors.toList());
 	}
 
+	private Map<String, List<Contact>> personsByCityMap = new TreeMap<>();
 
-	// View whole address book grouped by city or state
-	private Map<String, ArrayList<Contact>> personsByCityMap = new TreeMap<>();
-
-	public Map<String, ArrayList<Contact>> viewPersonsByCity() {
-		contactList
-				.forEach(person ->
-				personsByCityMap.put(person.getCity(), searchPersonsByCity(person.getCity())));
+	public Map<String, List<Contact>> viewPersonsByCity() {
+		contactList.stream()
+				.forEach(person -> personsByCityMap.put(person.getCity(), searchPersonsByCity(person.getCity())));
 		return personsByCityMap;
 	}
 
-	private Map<String, ArrayList<Contact>> personsByStateMap = new TreeMap<>();
+	private Map<String, List<Contact>> personsByStateMap = new TreeMap<>();
 
-	public Map<String, ArrayList<Contact>> viewPersonsByState() {
-		contactList
-				.forEach(person ->
-				personsByStateMap.put(person.getState(), searchPersonsByState(person.getState())));
+	public Map<String, List<Contact>> viewPersonsByState() {
+		contactList.stream()
+				.forEach(person -> personsByStateMap.put(person.getState(), searchPersonsByState(person.getState())));
 		return personsByStateMap;
 	}
-	
 
-	// Counting by city and state
-	public int countByCity(String city) {
-		return viewPersonsByCity().get(city).size();
+	public void countByCity() {
+		Set<String> cities = viewPersonsByCity().keySet();
+		cities.stream().forEach(city -> System.out.println(city + " contains: " + viewPersonsByCity().get(city).stream().count() + " persons."));
 	}
 
-	public int countByState(String state) {
-		return viewPersonsByState().get(state).size();
+	public void countByState() {
+		Set<String> states = viewPersonsByCity().keySet();
+		states.stream().forEach(state -> System.out.println(state + " contains: " + viewPersonsByCity().get(state).stream().count() + " persons."));
 	}
 }
