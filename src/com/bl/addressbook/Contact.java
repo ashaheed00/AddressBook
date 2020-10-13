@@ -1,4 +1,4 @@
-// Contact class
+package com.bl.addressbook;
 
 public class Contact {
 	private String firstName, lastName, name, address, city, state, zip, phoneNo, email;
@@ -109,8 +109,8 @@ public class Contact {
 
 	@Override
 	public String toString() {
-		return "\n{First Name :" + firstName + "\nLast Name :" + lastName + "\nAddress :" + address + "\nCity :" + city
-				+ "\nState :" + state + "\nZip :" + zip + "\nPhone No :" + phoneNo + "\nEmail :" + email + "}\n";
+		return "Name: " + firstName + " " + lastName + "\tAddress: " + address + "\tCity: " + city + "\tState: " + state
+				+ "\tZip: " + zip + "\tPhone No: " + phoneNo + "\tEmail: " + email + "\n";
 	}
 
 }

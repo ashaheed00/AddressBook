@@ -1,3 +1,8 @@
+package com.bl.addressbook;
+
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,14 +13,22 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class AddressBook {
+	public enum IOservice {
+		CONSOLE_IO, FILE_IO
+	}
 
+	public static final String ADDRESS_BOOK_FILES = "C:\\Users\\user\\eclipse-workspace\\AddressBook\\AddressBookFiles";
 	static Scanner in = new Scanner(System.in);
 	private List<Contact> contactList = new ArrayList<>();
 	private Map<String, Contact> contactMap = new HashMap<>();
-	static Map<String, AddressBook> addressBookList = new HashMap<>();
+	static Map<String, AddressBook> addressBookMap = new HashMap<>();
 
 	public AddressBook(String objectName) {
-		addressBookList.put(objectName, this);
+		addressBookMap.put(objectName, this);
+	}
+
+	public AddressBook(List<Contact> contactList) {
+		this.contactList = contactList;
 	}
 
 	public List<Contact> getContactList() {
@@ -26,7 +39,18 @@ public class AddressBook {
 		return contactMap;
 	}
 
-	public void addNewContact() {
+	public static void fetchingAddressBooksFromFiles() {
+		addressBookMap = new HashMap<String, AddressBook>();
+		Path filesPath = Paths.get(ADDRESS_BOOK_FILES);
+		File[] addressBookFiles = filesPath.toFile().listFiles();
+		for (File file : addressBookFiles) {
+			AddressBookFileIOOperations fileReadObject = new AddressBookFileIOOperations(file.toPath());
+			addressBookMap.put(file.getName().replaceFirst("[.][^.]+$", ""),
+					new AddressBook(fileReadObject.readData()));
+		}
+	}
+
+	public List<Contact> addNewContact() {
 		Contact person = new Contact();
 		System.out.print("First Name: ");
 		person.setFirstName(in.next());
@@ -34,7 +58,7 @@ public class AddressBook {
 		person.setLastName(in.next());
 		if (contactMap.containsKey(person.getName())) {
 			System.out.println("Duplicate Name.");
-			return;
+			return contactList;
 		}
 		System.out.print("Address: ");
 		person.setAddress(in.next());
@@ -51,10 +75,11 @@ public class AddressBook {
 
 		if (contactList.stream().anyMatch(other -> other.equals(person))) {
 			System.out.println("Duplicate details.");
-			return;
+			return contactList;
 		}
 		contactList.add(person);
 		contactMap.put(person.getName(), person);
+		return contactList;
 	}
 
 	public void editContact(String firstName, String lastName) {
@@ -133,17 +158,19 @@ public class AddressBook {
 
 	public void countByCity() {
 		Set<String> cities = viewPersonsByCity().keySet();
-		cities.stream().forEach(city -> System.out.println(city + " contains: " + viewPersonsByCity().get(city).stream().count() + " persons."));
+		cities.stream().forEach(city -> System.out
+				.println(city + " contains: " + viewPersonsByCity().get(city).stream().count() + " persons."));
 	}
 
 	public void countByState() {
 		Set<String> states = viewPersonsByCity().keySet();
-		states.stream().forEach(state -> System.out.println(state + " contains: " + viewPersonsByCity().get(state).stream().count() + " persons."));
+		states.stream().forEach(state -> System.out
+				.println(state + " contains: " + viewPersonsByCity().get(state).stream().count() + " persons."));
 	}
-	
+
 	public void sortByName() {
 		System.out.println("Sorting current address book by name: ");
-		contactList.stream().sorted((a, b) -> a.getName().compareTo(b.getName())).forEachOrdered(System.out::println);
+		contactList.stream().sorted((a, b) -> a.getName().compareTo(b.getName())).forEach(System.out::println);
 	}
 
 	public void sortByCity() {
@@ -160,5 +187,4 @@ public class AddressBook {
 		System.out.println("Sorting current address book by ZIP: ");
 		contactList.stream().sorted((a, b) -> a.getZip().compareTo(b.getZip())).forEachOrdered(System.out::println);
 	}
-
 }

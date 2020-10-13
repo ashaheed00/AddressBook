@@ -1,10 +1,24 @@
-// Version UC12
+package com.bl.addressbook;
 
-import java.util.Scanner;
+import java.io.File;
+import java.nio.file.*;
+import java.util.*;
 
 public class AddressBookMain {
-
+	private static HashMap<String, AddressBook> addressBookMap;
+	public static final String ADDRESS_BOOK_FILES = "C:\\Users\\user\\eclipse-workspace\\AddressBook\\AddressBookFiles";
 	private static Scanner sc = new Scanner(System.in);
+
+	public static void fetchingAddressBooksFromFiles() {
+		addressBookMap = new HashMap<String, AddressBook>();
+		Path dictionaryPath = Paths.get(ADDRESS_BOOK_FILES);
+		File[] addressBookFiles = dictionaryPath.toFile().listFiles();
+		for (File file : addressBookFiles) {
+			AddressBookFileIOOperations fileReadObject = new AddressBookFileIOOperations(file.toPath());
+			addressBookMap.put(file.getName().replaceFirst("[.][^.]+$", ""),
+					new AddressBook(fileReadObject.readData()));
+		}
+	}
 
 	private static void operations(AddressBook addressBook) {
 		System.out.println("Add new contact: type 1" + "\nEdit someone's details: type 2" + "\nDelete a contact: type 3"
@@ -49,11 +63,11 @@ public class AddressBookMain {
 		String menu = sc.next();
 		switch (menu) {
 		case "1":
-			System.out.println("Availbale addressbooks => " + AddressBook.addressBookList.keySet()
+			System.out.println("Availbale addressbooks => " + AddressBook.addressBookMap.keySet()
 					+ "\nEnter addressbook name properly: ");
 			String addressBookName = sc.next();
-			if (AddressBook.addressBookList.containsKey(addressBookName))
-				operations(AddressBook.addressBookList.get(addressBookName));
+			if (AddressBook.addressBookMap.containsKey(addressBookName))
+				operations(AddressBook.addressBookMap.get(addressBookName));
 			else
 				System.out.println("Wrong address book name. Try again.");
 			break;
@@ -69,30 +83,21 @@ public class AddressBookMain {
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program!");
 
-		// Creating two distinct address books
-		AddressBook addressBookA = new AddressBook("addressBookA");
-		AddressBook addressBookB = new AddressBook("addressBookB");
+		// Fetching address book from files
+		fetchingAddressBooksFromFiles();
 		// Entering into to main menu
-		mainMenu();
-		// checking whether my operations worked correctly or not
-		System.out.println("addressBookA after all the operations => \n" + addressBookA.getContactList());
-		System.out.println("addressBookB after all the operations => \n" + addressBookB.getContactList());
-		// View addressBookA by City
-		System.out.println(addressBookA.viewPersonsByCity());
-		// View addressBookB by State
-		System.out.println(addressBookB.viewPersonsByState());
-		// Count by city
-		addressBookA.countByCity();
-		// Count by state
-		addressBookA.countByState();
-		// Sorting by name
-		addressBookA.sortByName();
-		// Sorting by city
-		addressBookA.sortByCity();
-		// Sorting by state
-		addressBookA.sortByState();
-		// Sorting by ZIP
-		addressBookA.sortByZip();
+		// mainMenu();
+
+		AddressBook newAddressBook = new AddressBook("newAddressBook");
+		Path newAdPath = Paths
+				.get("C:\\Users\\user\\eclipse-workspace\\AddressBook\\AddressBookFiles\\NewAddressBook.txt");
+		AddressBookFileIOOperations addressBookFileIOOperations = new AddressBookFileIOOperations(newAdPath);
+		// Using readData method to write using console into the file
+		addressBookFileIOOperations.writeData(newAddressBook.addNewContact());
+		// Sorting each address book
+		for (String adbk : addressBookMap.keySet()) {
+			addressBookMap.get(adbk).sortByCity();
+		}
 
 	}
 }
