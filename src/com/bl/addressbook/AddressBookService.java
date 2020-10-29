@@ -36,6 +36,14 @@ public class AddressBookService {
 		return addressBookJDBCServices.getContactForDateRange(startDate, endDate);
 	}
 
+	public List<Contact> getContactsByCity(String cityName) {
+		return addressBookJDBCServices.getContactByField("city", cityName);
+	}
+
+	public List<Contact> getContactsByState(String stateName) {
+		return addressBookJDBCServices.getContactByField("state", stateName);
+	}
+
 	public void updateCity(String firstName, String city) throws AddressBookDBException {
 		int result = addressBookJDBCServices.updateContactUsingSQL(firstName, "city", city);
 		Contact contact = getContactData(firstName);

@@ -47,6 +47,11 @@ public class AddressBookJDBCServices {
 		return getContactList(sql);
 	}
 
+	public List<Contact> getContactByField(String columName, String columnValue) {
+		String sql = String.format("SELECT * FROM addressbook WHERE %s = '%s';", columName, columnValue);
+		return getContactList(sql);
+	}
+
 	public int updateContactUsingSQL(String firstName, String column, String columnValue) {
 		String sql = String.format("UPDATE addressbook SET %s = '%s'  WHERE first_name = '%s';", column, columnValue,
 				firstName);

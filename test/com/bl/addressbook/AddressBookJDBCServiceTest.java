@@ -40,4 +40,16 @@ public class AddressBookJDBCServiceTest {
 		List<Contact> contactList = addressBookService.getContactsForDateRange(startDate, endDate);
 		assertEquals(2, contactList.size());
 	}
+
+	@Test
+	public void givenAddressBookData_WhenRetrievedByCity_ShouldMatchContactCount() {
+		List<Contact> contactList = addressBookService.getContactsByCity("Kolkata");
+		assertEquals(1, contactList.size());
+	}
+
+	@Test
+	public void givenAddressBookData_WhenRetrievedByState_ShouldMatchContactCount() {
+		List<Contact> contactList = addressBookService.getContactsByState("West Bengal");
+		assertEquals(2, contactList.size());
+	}
 }
