@@ -1,5 +1,7 @@
 package com.bl.addressbook;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.bl.addressbook.exception.AddressBookDBException;
@@ -30,6 +32,10 @@ public class AddressBookService {
 		return contactList;
 	}
 
+	public List<Contact> getContactsForDateRange(LocalDate startDate, LocalDate endDate) {
+		return addressBookJDBCServices.getContactForDateRange(startDate, endDate);
+	}
+
 	public void updateCity(String firstName, String city) throws AddressBookDBException {
 		int result = addressBookJDBCServices.updateContactUsingSQL(firstName, "city", city);
 		Contact contact = getContactData(firstName);
@@ -41,14 +47,13 @@ public class AddressBookService {
 			throw new AddressBookDBException("No data found", ExceptionType.NO_DATA_FOUND);
 	}
 
-	private Contact getContactData(String name) {
-		readContactData(IOService.DB_IO);
-		return contactList.stream().filter(e -> e.getFirstName().equals(name)).findFirst().orElse(null);
-	}
-
 	public boolean isAddressBookSyncedWithDB(String firstName) {
 		Contact contact = getContactData(firstName);
 		return addressBookJDBCServices.getContacts(firstName).get(0).equals(contact);
 	}
 
+	private Contact getContactData(String name) {
+		readContactData(IOService.DB_IO);
+		return contactList.stream().filter(e -> e.getFirstName().equals(name)).findFirst().orElse(null);
+	}
 }

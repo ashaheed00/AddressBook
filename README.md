@@ -1,3 +1,3 @@
 # AddressBook
-## Version UC17
-#### UC17_JDBC_UpdateContactInfo
+## Version UC18
+#### UC18_JDBC_RetrieveContactsBetweenRange
