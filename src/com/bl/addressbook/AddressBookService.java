@@ -44,6 +44,12 @@ public class AddressBookService {
 		return addressBookJDBCServices.getContactByField("state", stateName);
 	}
 
+	public Contact addNewContact(String date, String firstName, String lastName, String address, String city,
+			String state, String zip, String phoneNo, String email) throws AddressBookDBException {
+		return addressBookJDBCServices.insertNewContactToDB(date, firstName, lastName, address, city, state, zip,
+				phoneNo, email);
+	}
+
 	public void updateCity(String firstName, String city) throws AddressBookDBException {
 		int result = addressBookJDBCServices.updateContactUsingSQL(firstName, "city", city);
 		Contact contact = getContactData(firstName);

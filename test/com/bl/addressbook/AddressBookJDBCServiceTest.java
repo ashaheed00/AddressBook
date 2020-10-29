@@ -52,4 +52,12 @@ public class AddressBookJDBCServiceTest {
 		List<Contact> contactList = addressBookService.getContactsByState("West Bengal");
 		assertEquals(2, contactList.size());
 	}
+
+	@Test
+	public void givenContactData_WhenAddedToDB_ShouldSyncWithDB() throws AddressBookDBException {
+		addressBookService.addNewContact("2018-08-08", "Trisha", "Krishnan", "68/1 Srishti Complex", "Ernakulam",
+				"Kerala", "682011", "8725120000", "trisha@person.com");
+		boolean isSynced = addressBookService.isAddressBookSyncedWithDB("Trisha");
+		assertTrue(isSynced);
+	}
 }

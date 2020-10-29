@@ -1,7 +1,7 @@
 package com.bl.addressbook.exception;
 
 public class AddressBookDBException extends Exception {
-	public enum ExceptionType {
+	public static enum ExceptionType {
 		NO_DATA_FOUND, WRONG_SQL, WRONG_NAME, WRONG_IO_TYPE
 	}
 

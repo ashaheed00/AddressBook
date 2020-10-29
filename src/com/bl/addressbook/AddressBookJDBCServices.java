@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bl.addressbook.exception.AddressBookDBException;
+
 public class AddressBookJDBCServices {
 
 	private PreparedStatement contactPreparedStatement;
@@ -62,6 +64,24 @@ public class AddressBookJDBCServices {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+
+	public Contact insertNewContactToDB(String date, String firstName, String lastName, String address, String city,
+			String state, String zip, String phoneNo, String email) throws AddressBookDBException {
+		String sql = String.format(
+				"INSERT INTO addressbook (date_added,first_name,last_name,address,city,state,zip,phone_number,email) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s');",
+				date, firstName, lastName, address, city, state, zip, phoneNo, email);
+		Contact contact = null;
+		try (Connection connection = getConnection()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			int result = preparedStatement.executeUpdate();
+			if (result == 1)
+				contact = new Contact(firstName, lastName, address, city, state, zip, phoneNo, email);
+		} catch (SQLException e) {
+			throw new AddressBookDBException("Wrong SQL or field given",
+					AddressBookDBException.ExceptionType.WRONG_SQL);
+		}
+		return contact;
 	}
 
 	private List<Contact> getContactList(String sql) {
