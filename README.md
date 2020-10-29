@@ -1,3 +1,3 @@
 # AddressBook
-## Version UC16
-#### UC16_JDBC_RetrieveAllData
+## Version UC17
+#### UC17_JDBC_UpdateContactInfo
