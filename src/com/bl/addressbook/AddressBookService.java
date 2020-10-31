@@ -2,7 +2,9 @@ package com.bl.addressbook;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.bl.addressbook.exception.AddressBookDBException;
 import com.bl.addressbook.exception.AddressBookDBException.ExceptionType;
@@ -48,6 +50,29 @@ public class AddressBookService {
 			String state, String zip, String phoneNo, String email) throws AddressBookDBException {
 		return addressBookJDBCServices.insertNewContactToDB(date, firstName, lastName, address, city, state, zip,
 				phoneNo, email);
+	}
+
+	public void addNewMultipleContacts(List<Contact> contacts) throws AddressBookDBException {
+		Map<Integer, Boolean> status = new HashMap<>();
+		contacts.forEach(contact -> {
+			status.put(contact.hashCode(), false);
+			Runnable task = () -> {
+				try {
+					addressBookJDBCServices.insertNewContactToDB("2020-10-30", contact.getFirstName(),
+							contact.getLastName(), contact.getAddress(), contact.getCity(), contact.getState(),
+							contact.getZip(), contact.getPhoneNo(), contact.getEmail());
+					status.put(contact.hashCode(), true);
+				} catch (AddressBookDBException e) {
+				}
+			};
+			Thread thread = new Thread(task, contact.getFirstName());
+			thread.start();
+		});
+		while (status.containsValue(false))
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+			}
 	}
 
 	public void updateCity(String firstName, String city) throws AddressBookDBException {
