@@ -1,4 +1,4 @@
-package com.bl.addressbook;
+package com.bl.addressbook.services;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bl.addressbook.Contact;
 import com.bl.addressbook.exception.AddressBookDBException;
 
 public class AddressBookJDBCServices {

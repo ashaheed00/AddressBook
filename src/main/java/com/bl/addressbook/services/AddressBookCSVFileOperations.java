@@ -1,10 +1,11 @@
-package com.bl.addressbook;
+package com.bl.addressbook.services;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
+import com.bl.addressbook.Contact;
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.*;
 import com.opencsv.exceptions.*;

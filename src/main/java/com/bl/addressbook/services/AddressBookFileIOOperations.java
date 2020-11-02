@@ -1,10 +1,12 @@
-package com.bl.addressbook;
+package com.bl.addressbook.services;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.bl.addressbook.Contact;
 
 public class AddressBookFileIOOperations {
 

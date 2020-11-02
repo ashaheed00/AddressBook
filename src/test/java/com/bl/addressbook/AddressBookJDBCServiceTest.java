@@ -11,8 +11,9 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.bl.addressbook.AddressBookService.IOService;
 import com.bl.addressbook.exception.AddressBookDBException;
+import com.bl.addressbook.services.AddressBookService;
+import com.bl.addressbook.services.AddressBookService.IOService;
 
 public class AddressBookJDBCServiceTest {
 	AddressBookService addressBookService;
