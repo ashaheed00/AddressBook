@@ -3,6 +3,7 @@ package com.bl.addressbook;
 import com.opencsv.bean.CsvBindByName;
 
 public class Contact {
+	private int id;
 	@CsvBindByName(column = "First Name")
 	private String firstName;
 	@CsvBindByName(column = "Last Name")
@@ -37,6 +38,12 @@ public class Contact {
 		this.email = email;
 		this.name = (firstName + " " + lastName).toLowerCase();
 
+	}
+
+	public Contact(int id, String firstName, String lastName, String address, String city, String state, String zip,
+			String phoneNo, String email) {
+		this(firstName, lastName, address, city, state, zip, phoneNo, email);
+		this.id = id;
 	}
 
 	// getters and setters
@@ -106,6 +113,14 @@ public class Contact {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	@Override

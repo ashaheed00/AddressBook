@@ -14,6 +14,10 @@ public class AddressBookFileIOOperations {
 		this.addressBookPath = addressBookPath;
 	}
 
+	public AddressBookFileIOOperations() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public void writeData(List<Contact> addressBook) {
 		StringBuffer contactBufferString = new StringBuffer();
 		addressBook.stream().forEach(contact -> {
