@@ -1,3 +1,3 @@
 # AddressBook
-## Version UC24
-#### UC24_Refactored_FollowingSOLIDPriciple
+## Version UC25
+#### UC25_JsonServer_DeleteAndUpdateDataFromServer

@@ -2,16 +2,15 @@ package com.bl.addressbook;
 
 import static org.junit.Assert.assertEquals;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
+import com.bl.addressbook.exception.AddressBookDBException;
+import com.bl.addressbook.services.AddressBookServices;
 import com.google.gson.Gson;
 
 import io.restassured.RestAssured;
@@ -29,7 +28,7 @@ public class AddressBookJsonServerTest {
 	private List<Contact> getAddressBook() {
 		Response response = RestAssured.get("/addressbook");
 		Contact[] addresbook = new Gson().fromJson(response.asString(), Contact[].class);
-		return Arrays.asList(addresbook);
+		return new ArrayList<>(Arrays.asList(addresbook));
 	}
 
 	@Test
@@ -60,6 +59,40 @@ public class AddressBookJsonServerTest {
 			Response response = addContactToJSONServer(contact);
 			assertEquals(201, response.statusCode());
 		}
+	}
+
+	private Response updateContactData(Contact contact) {
+		String contactJson = new Gson().toJson(contact);
+		RequestSpecification requestSpecification = RestAssured.given();
+		requestSpecification.header("Content-Type", "application/json");
+		requestSpecification.body(contactJson);
+		return requestSpecification.put("/addressbook/" + contact.getId());
+	}
+
+	@Test
+	public void givenNewCityForContact_WhenUpdated_ShouldMatchStatusCode() throws AddressBookDBException {
+		AddressBookServices addressBookServices = new AddressBookServices(getAddressBook());
+		addressBookServices.updateCity("Aditi", "Mumbai");
+		Contact contact = addressBookServices.getContactByName("Aditi");
+		Response response = updateContactData(contact);
+		assertEquals(200, response.getStatusCode());
+	}
+
+	private Response deleteContact(Contact contact) {
+		String contactJson = new Gson().toJson(contact);
+		RequestSpecification requestSpecification = RestAssured.given();
+		requestSpecification.header("Content-Type", "application/json");
+		requestSpecification.body(contactJson);
+		return requestSpecification.delete("/addressbook/" + contact.getId());
+	}
+
+	@Test
+	public void givenEmployeeId_WhenDelelted_ShouldMatchStatusCodeAndCount() {
+		AddressBookServices addressBookServices = new AddressBookServices(getAddressBook());
+		Contact contact = addressBookServices.getContactByName("Dev");
+		addressBookServices.removeContact("Dev");
+		Response response = deleteContact(contact);
+		assertEquals(200, response.getStatusCode());
 	}
 
 }

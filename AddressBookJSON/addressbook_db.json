@@ -14,11 +14,10 @@
     },
     {
       "id": 2,
-      "date_added": "2016-01-01",
       "firstName": "Aditi",
       "lastName": "Sharma",
       "address": "4/11 Vati Nagar",
-      "city": "Pune",
+      "city": "Mumbai",
       "state": "Maharashtra",
       "zip": "625058",
       "phoneNo": "8888888888",
@@ -59,30 +58,6 @@
       "zip": "682011",
       "phoneNo": "8725120000",
       "email": "trisha@person.com"
-    },
-    {
-      "id": 6,
-      "firstName": "Dev",
-      "lastName": "Patel",
-      "name": "dev patel",
-      "address": "68/1 Aura Complex",
-      "city": "Ernakulam",
-      "state": "Kerala",
-      "zip": "682011",
-      "phoneNo": "8725120000",
-      "email": "dev@person.com"
-    },
-    {
-      "id": 7,
-      "firstName": "Josh",
-      "lastName": "Smith",
-      "name": "josh smith",
-      "address": "68/1 Bristi Complex",
-      "city": "Aluva",
-      "state": "Kerala",
-      "zip": "683022",
-      "phoneNo": "8725120022",
-      "email": "josh@person.com"
     }
   ]
 }

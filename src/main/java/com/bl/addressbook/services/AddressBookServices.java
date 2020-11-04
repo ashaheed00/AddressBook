@@ -3,7 +3,6 @@ package com.bl.addressbook.services;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -116,6 +115,11 @@ public class AddressBookServices {
 			contactList = getContacts(ioType);
 	}
 
+	public void updateCity(String firstName, String city) throws AddressBookDBException {
+		contactList.stream().filter(contact -> contact.getFirstName().equals(firstName)).findFirst().orElse(null)
+				.setCity(city);
+	}
+
 	public void updateState(IOType ioType, String firstName, String state) throws AddressBookDBException {
 		IOServices ioService = IOObjectBuilder.getIOObject(ioType, filePath);
 		int result = 0;
@@ -130,6 +134,10 @@ public class AddressBookServices {
 	public boolean isAddressBookSynced(IOType ioType, String firstName) {
 		Contact contact = getContactData(ioType, firstName);
 		return getContacts(ioType).contains(contact);
+	}
+
+	public Contact getContactByName(String name) {
+		return contactList.stream().filter(e -> e.getFirstName().equals(name)).findFirst().orElse(null);
 	}
 
 	private Contact getContactData(IOType ioType, String name) {
@@ -151,5 +159,10 @@ public class AddressBookServices {
 		Set<String> cities = contactsByCity.keySet();
 		cities.stream().forEach(city -> cityMap.put(city, contactsByCity.get(city).size()));
 		return cityMap;
+	}
+
+	public void removeContact(String firstName) {
+		Contact contact = contactList.stream().filter(e -> e.getFirstName().equals(firstName)).findFirst().orElse(null);
+		contactList.remove(contact);
 	}
 }
