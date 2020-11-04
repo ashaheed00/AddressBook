@@ -35,7 +35,6 @@ public class AddressBookJsonServerTest {
 	@Test
 	public void givenAddressBook_WhenRetrieved_ShouldMatchTheCount() {
 		List<Contact> contactList = getAddressBook();
-		System.out.println(contactList);
 		assertEquals(5, contactList.size());
 	}
 

@@ -4,8 +4,8 @@ import java.io.File;
 import java.nio.file.*;
 import java.util.*;
 
-import com.bl.addressbook.services.AddressBookCSVFileOperations;
-import com.bl.addressbook.services.AddressBookFileIOOperations;
+import com.bl.addressbook.ioservices.AddressBookCSVFileOperations;
+import com.bl.addressbook.ioservices.AddressBookFileIOOperations;
 
 public class AddressBookMain {
 	private static HashMap<String, AddressBook> addressBookMap;
@@ -94,7 +94,7 @@ public class AddressBookMain {
 		 */
 		AddressBookCSVFileOperations adbkCSVtoRead = new AddressBookCSVFileOperations(
 				Paths.get(ADDRESS_BOOK_CSV_TO_READ));
-		List<Contact> addressBookFetchedFromCSV = adbkCSVtoRead.readCSVData();
+		List<Contact> addressBookFetchedFromCSV = adbkCSVtoRead.readData();
 		System.out.println(addressBookFetchedFromCSV);
 		/*
 		 * Fetched data from Employee.csv is used to write into TeamMembers.csv file
@@ -102,6 +102,6 @@ public class AddressBookMain {
 		 */
 		AddressBookCSVFileOperations adbkCSVtoWrite = new AddressBookCSVFileOperations(
 				Paths.get(ADDRESS_BOOK_CSV_TO_WRITE));
-		adbkCSVtoWrite.writeCSVData(addressBookFetchedFromCSV);
+		adbkCSVtoWrite.writeData(addressBookFetchedFromCSV);
 	}
 }

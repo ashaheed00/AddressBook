@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-import com.bl.addressbook.services.AddressBookFileIOOperations;
+import com.bl.addressbook.ioservices.AddressBookFileIOOperations;
 
 public class AddressBook {
 	public enum IOservice {

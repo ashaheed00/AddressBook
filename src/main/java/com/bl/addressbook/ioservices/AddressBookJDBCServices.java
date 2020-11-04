@@ -1,5 +1,6 @@
-package com.bl.addressbook.services;
+package com.bl.addressbook.ioservices;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -8,12 +9,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.bl.addressbook.Contact;
 import com.bl.addressbook.exception.AddressBookDBException;
 
-public class AddressBookJDBCServices {
+public class AddressBookJDBCServices implements IOServices {
 
 	private PreparedStatement contactPreparedStatement;
 	private static AddressBookJDBCServices addressBookJDBCServices;
@@ -101,4 +104,42 @@ public class AddressBookJDBCServices {
 		return contactList;
 	}
 
+	@Override
+	public void writeData(List<Contact> contacts) throws IOException {
+		Map<Integer, Boolean> status = new HashMap<>();
+		contacts.forEach(contact -> {
+			status.put(contact.hashCode(), false);
+			Runnable task = () -> {
+				try {
+					this.insertNewContactToDB(LocalDate.now().toString(), contact.getFirstName(), contact.getLastName(),
+							contact.getAddress(), contact.getCity(), contact.getState(), contact.getZip(),
+							contact.getPhoneNo(), contact.getEmail());
+					status.put(contact.hashCode(), true);
+				} catch (AddressBookDBException e) {
+				}
+			};
+			Thread thread = new Thread(task, contact.getFirstName());
+			thread.start();
+		});
+		while (status.containsValue(false))
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+			}
+	}
+
+	@Override
+	public int updateContact(String firstName, String column, String columnValue) {
+		return updateContactUsingSQL(firstName, column, columnValue);
+	}
+
+	@Override
+	public List<Contact> getContactsByCity(String cityName) {
+		return getContactByField("city", cityName);
+	}
+
+	@Override
+	public List<Contact> getContactsByState(String stateName) {
+		return getContactByField("state", stateName);
+	}
 }

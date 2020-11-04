@@ -12,29 +12,29 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.bl.addressbook.exception.AddressBookDBException;
-import com.bl.addressbook.services.AddressBookService;
-import com.bl.addressbook.services.AddressBookService.IOService;
+import com.bl.addressbook.services.AddressBookServices;
+import com.bl.addressbook.services.IOType;
 
-public class AddressBookJDBCServiceTest {
-	AddressBookService addressBookService;
+public class AddressBookJDBCServicesTest {
+	AddressBookServices addressBookServices;
 
 	@Before
 	public void initialize() {
-		addressBookService = new AddressBookService();
+		addressBookServices = new AddressBookServices();
 	}
 
 	@Ignore
 	@Test
 	public void givenAddressBookData_WhenRetrieved_ShouldMatchContactCount() {
-		List<Contact> contactList = addressBookService.readContactData(IOService.DB_IO);
+		List<Contact> contactList = addressBookServices.getContacts(IOType.DB_IO);
 		assertEquals(4, contactList.size());
 	}
 
 	@Ignore
 	@Test
 	public void givenName_WhenUpdatedContactInfo_ShouldSyncWithDB() throws AddressBookDBException {
-		addressBookService.updateCity("Aditi", "Pune");
-		boolean isSynced = addressBookService.isAddressBookSyncedWithDB("Aditi");
+		addressBookServices.updateCity(IOType.DB_IO, "Aditi", "Pune");
+		boolean isSynced = addressBookServices.isAddressBookSynced(IOType.DB_IO, "Aditi");
 		assertTrue(isSynced);
 	}
 
@@ -43,30 +43,30 @@ public class AddressBookJDBCServiceTest {
 	public void givenDateRange_WhenRetrievedContactInfo_ShouldMatchCount() throws AddressBookDBException {
 		LocalDate startDate = LocalDate.of(2019, 01, 01);
 		LocalDate endDate = LocalDate.now();
-		List<Contact> contactList = addressBookService.getContactsForDateRange(startDate, endDate);
+		List<Contact> contactList = addressBookServices.getContactsForDateRange(startDate, endDate);
 		assertEquals(2, contactList.size());
 	}
 
 	@Ignore
 	@Test
 	public void givenAddressBookData_WhenRetrievedByCity_ShouldMatchContactCount() {
-		List<Contact> contactList = addressBookService.getContactsByCity("Kolkata");
+		List<Contact> contactList = addressBookServices.getContactsByCity(IOType.DB_IO, "Kolkata");
 		assertEquals(1, contactList.size());
 	}
 
 	@Ignore
 	@Test
 	public void givenAddressBookData_WhenRetrievedByState_ShouldMatchContactCount() {
-		List<Contact> contactList = addressBookService.getContactsByState("West Bengal");
+		List<Contact> contactList = addressBookServices.getContactsByState(IOType.DB_IO, "West Bengal");
 		assertEquals(2, contactList.size());
 	}
 
 	@Ignore
 	@Test
 	public void givenContactData_WhenAddedToDB_ShouldSyncWithDB() throws AddressBookDBException {
-		addressBookService.addNewContact("2018-08-08", "Trisha", "Krishnan", "68/1 Srishti Complex", "Ernakulam",
+		addressBookServices.addNewContact("2018-08-08", "Trisha", "Krishnan", "68/1 Srishti Complex", "Ernakulam",
 				"Kerala", "682011", "8725120000", "trisha@person.com");
-		boolean isSynced = addressBookService.isAddressBookSyncedWithDB("Trisha");
+		boolean isSynced = addressBookServices.isAddressBookSynced(IOType.DB_IO, "Trisha");
 		assertTrue(isSynced);
 	}
 
@@ -81,7 +81,7 @@ public class AddressBookJDBCServiceTest {
 						"faizal@person.com"));
 			}
 		};
-		addressBookService.addNewMultipleContacts(contacts);
-		assertEquals(7, addressBookService.readContactData(IOService.DB_IO).size());
+		addressBookServices.addContacts(IOType.DB_IO, contacts);
+		assertEquals(6, addressBookServices.getContacts(IOType.DB_IO).size());
 	}
 }
